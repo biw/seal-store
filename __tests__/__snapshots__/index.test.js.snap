@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`1st level state cannot be changed without setState boolean 1`] = `"Cannot assign to read only property 'booleanKey' of [object Object]"`;
+
+exports[`1st level state cannot be changed without setState correct prototype 1`] = `Object {}`;
+
+exports[`1st level state cannot be changed without setState empty array 1`] = `"Cannot add property 0, object is not extensible"`;
+
+exports[`1st level state cannot be changed without setState explicit empty object 1`] = `"Cannot assign to read only property 'numberKey' of [object Object]"`;
+
+exports[`1st level state cannot be changed without setState implict empty object 1`] = `"Cannot assign to read only property 'numberKey' of [object Object]"`;
+
+exports[`1st level state cannot be changed without setState number 1`] = `"Cannot assign to read only property 'numberKey' of [object Object]"`;
+
+exports[`1st level state cannot be changed without setState object 1`] = `"Cannot assign to read only property 'emptyObjectKey' of [object Object]"`;
+
+exports[`1st level state cannot be changed without setState string 1`] = `"Cannot assign to read only property 'stringKey' of [object Object]"`;
+
+exports[`2nd level state cannot be changed without setState 1d array with child object 1`] = `"Cannot assign to read only property 'testKey' of object '#<Object>'"`;
+
+exports[`2nd level state cannot be changed without setState 2d array 1`] = `"Cannot add property 0, object is not extensible"`;
+
+exports[`2nd level state cannot be changed without setState empty array 1`] = `"Cannot add property 0, object is not extensible"`;
+
+exports[`2nd level state cannot be changed without setState number 1`] = `"Cannot assign to read only property 'numberKey' of object '#<Object>'"`;
+
+exports[`2nd level state cannot be changed without setState object with object child 1`] = `"Cannot assign to read only property 'emptyObjectKey' of object '#<Object>'"`;
+
+exports[`Arrays can change children 1`] = `
+Object {
+  "arrayKey": Array [
+    1,
+  ],
+}
+`;
+
+exports[`Arrays can grow 1`] = `
+Object {
+  "arrayKey": Array [
+    "test",
+  ],
+}
+`;
+
+exports[`Arrays have correct prototype 1`] = `Array []`;
+
+exports[`Object keys are removed if setState does not specify them 1st level deep 1`] = `
+Object {
+  "numberKey": 1,
+  "stringKey": "new test",
+}
+`;
+
+exports[`Object keys can be changed with setState 1st level 1`] = `
+Object {
+  "stringKey": "new test",
+}
+`;
+
+exports[`Object keys can be changed with setState 2nd level 1`] = `
+Object {
+  "secondLevel": Object {
+    "stringKey": "new test",
+  },
+}
+`;
+
+exports[`Object keys can be changed with setState 10th level state can be changed with setState 1`] = `
+Object {
+  "secondLevel": Object {
+    "thirdLevel": Object {
+      "fourthLevel": Object {
+        "fifthLevel": Object {
+          "sixthLevel": Object {
+            "seventhLevel": Object {
+              "eighthLevel": Object {
+                "ninthLevel": Object {
+                  "tenthLevel": Object {
+                    "stringKey": "new test",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Object keys cannot be added with setState 1st level 1`] = `"The key 'secondKey' is not in the object '[object Object]'"`;
+
+exports[`Object keys cannot be added with setState 2nd level 1`] = `"The key 'secondKey' is not in the object '[object Object]'"`;
+
+exports[`Object keys cannot be added with setState 10th level 1`] = `"The key 'stringKey2' is not in the object '[object Object]'"`;

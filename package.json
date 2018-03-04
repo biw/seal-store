@@ -1,6 +1,6 @@
 {
   "name": "seal-store",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple store where all objects are emutable by any means other than a idempotent `setState` function ",
   "main": "index.js",
   "repository": "https://github.com/719ben/seal-store",

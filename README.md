@@ -3,6 +3,7 @@
 [![Build Status][build-badge]][build]
 [![version][version-badge]][package]
 [![MIT License][license-badge]][license]
+[![twitter][twitter-badge]][twitter]
 
 [![Seal Playing Saxophone][sealImage]][sealImageLink]
 
@@ -76,13 +77,13 @@ or
 ```sh
 npm add --save seal-store
 ```
-or as a script tag
+<!-- or as a script tag
 ```html
 <script src="https://unpkg.com/seal-store/dist/seal-store.umd.js"></script>
 <script type="application/javascript">
   const { state, setState } = window.sealStore({ 'saxPlayingSeal': 'looking good' })
 </script>
-```
+``` -->
 
 ## A note on children objects
 Currently, you cannot add properties to child object in the state tree. You can however, removed properties, in order to not have confusing syntax. (this may change in the v1.0.0 release of `seal-store`)
@@ -124,9 +125,11 @@ MIT © [Ben Williams](https://719ben.com)
 
 [sealImageLink]: https://www.youtube.com/watch?v=X0k7N0ASfp8
 [sealImage]: https://media2.giphy.com/media/ySz02sRVFK372/giphy.gif
-[build-badge]: https://img.shields.io/travis/719ben/seal-store.svg?style=flat-square
-[build]: https://travis-ci.org/719ben/seal-store
+[build-badge]: https://img.shields.io/travis/719Ben/seal-store.svg?style=flat-square
+[build]: https://travis-ci.org/719Ben/seal-store
 [version-badge]: https://img.shields.io/npm/v/seal-store.svg?style=flat-square
 [package]: https://www.npmjs.com/package/seal-store
 [license-badge]: https://img.shields.io/npm/l/seal-store.svg?style=flat-square
 [license]: https://github.com/719ben/seal-store/blob/master/LICENSE
+[twitter-badge]: https://img.shields.io/twitter/follow/719ben.svg?style=flat-square&logo=twitter&label=Follow
+[twitter]: https://twitter.com/719ben

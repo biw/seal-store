@@ -1,6 +1,6 @@
 {
   "name": "seal-store",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple framework agnostic state store where the `state` object is immutable by any means other than a `setState` function",
   "main": "dist/seal-store.js",
   "jsnext:main": "dist/seal-store.es.js",

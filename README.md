@@ -36,7 +36,7 @@ const { state, setState } = initState({
 setState({ fish: 'in water' }) // => throws TypeError
 ```
 
-This rule in true infinity deep.
+This rule is true infinitely deep.
 ```js
 const { state, setState } = initState({
   secondLevel: { thirdLevel: { fourthLevel: { 'saxPlayingSeal': 'looking good' } } }
@@ -45,7 +45,7 @@ const { state, setState } = initState({
 setState({ secondLevel: { thirdLevel: { fourthLevel: { fish: 'in water' }) // => throws TypeError
 ```
 
-There is one exception to adding properties: arrays can shrink or grow. However, any objects inside of them (other than arrays) properties cannot be added.
+There is one exception to adding properties: arrays can shrink or grow. However, in any objects inside of them (other than arrays) properties cannot be added.
 ```js
 const { state, setState } = initState({
   sealsInDocs: [{ name: 'spinningSeal' }],
@@ -56,7 +56,7 @@ setState({ sealsInReadme: [...state.sealsInReadme, { name: 'happySeal' }] }) // 
 setState({ sealsInReadme: [] }) // this is also fine
 ```
 
-`seal-store` also comes with the ability to add an event callback when the state is updated.
+`seal-store` also comes with the ability to add a callback when any key in the state is updated.
 ```js
 const stateHasBeenUpdated = (newState) => { console.log('the state has updated') }
 
@@ -86,7 +86,7 @@ npm add --save seal-store
 ``` -->
 
 ## A note on children objects
-Currently, you cannot add properties to child object in the state tree. You can however, removed properties, in order to not have confusing syntax. (this may change in the v1.0.0 release of `seal-store`)
+Currently, you cannot add properties to children objects in the state tree. You can however, removed properties. This is due to not wanting to conflict with the existing object spread syntax (this may change in the v1.0.0 release of `seal-store`)
 
 ```js
 const { state, setState } = initState({

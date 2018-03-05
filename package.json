@@ -43,6 +43,7 @@
     "uglify-js": "^3.3.13"
   },
   "dependencies": {
-    "deep-freeze-strict": "^1.1.1"
+    "deep-freeze-strict": "^1.1.1",
+    "object.entries": "^1.0.4"
   }
 }

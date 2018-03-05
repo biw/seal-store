@@ -1,4 +1,9 @@
 import deepFreeze from 'deep-freeze-strict'
+import entries from 'object.entries'
+
+if (!Object.entries) {
+  entries.shim()
+}
 
 const isObject = (obj) => {
   try {

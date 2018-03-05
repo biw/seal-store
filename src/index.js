@@ -30,7 +30,7 @@ const subSetter = (obj, edits, topLevel = false) => {
   })
 }
 
-const sealStore = (initState = {}) => {
+const sealStore = (initState = {}, callback = () => {}) => {
   let initalized = false
 
   const sealProxy = (proxyObj) => {
@@ -53,13 +53,14 @@ const sealStore = (initState = {}) => {
     return new Proxy(proxyObj, api)
   }
 
-  const deepInitState = Object.assign({}, initState)
-  const baseObject = sealProxy(deepInitState)
+  const copyInitState = Object.assign({}, initState)
+  const baseObject = sealProxy(copyInitState)
 
   const setState = (edits = {}) => {
     initalized = false
     subSetter(baseObject, edits, true)
     initalized = true
+    callback(baseObject)
   }
 
   Object.keys(baseObject).forEach((key) => {

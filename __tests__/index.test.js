@@ -386,28 +386,14 @@ describe('underlying state Object is a deep copy of the input', () => {
   })
 })
 
-describe('Object keys are removed if setState does not specify them', () => {
-  test('1st level deep', () => {
-    const { state, setState } = initStore({
-      stringKey: 'test',
-      numberKey: 1,
-    })
-
-    setState({
-      stringKey: 'new test',
-    })
-
-    expect(state).toMatchSnapshot()
-  })
+describe('sub-object keys are removed if setState does not specify them', () => {
   test('2nd level deep', () => {
-    const obj = {
-      stringKey: 'test',
+    const { state, setState } = initStore({
       secondLevel: {
         numberKey: 1,
+        stringKey: 'test',
       },
-    }
-
-    const { state, setState } = initStore(obj)
+    })
 
     setState({
       secondLevel: {
@@ -415,20 +401,18 @@ describe('Object keys are removed if setState does not specify them', () => {
       },
     })
 
-    expect(state.secondLevel.numberKey).not.toEqual(obj.secondLevel.numberKey)
+    expect(state).toMatchSnapshot()
   })
 
   test('3rd level deep', () => {
-    const obj = {
-      stringKey: 'test',
+    const { state, setState } = initStore({
       secondLevel: {
         thirdLevel: {
           numberKey: 2,
+          stringKey: 'test',
         },
       },
-    }
-
-    const { state, setState } = initStore(obj)
+    })
 
     setState({
       secondLevel: {
@@ -438,8 +422,7 @@ describe('Object keys are removed if setState does not specify them', () => {
       },
     })
 
-    expect(state.secondLevel.thirdLevel.numberKey)
-      .not.toEqual(obj.secondLevel.thirdLevel.numberKey)
+    expect(state).toMatchSnapshot()
   })
 })
 
@@ -478,5 +461,19 @@ describe('Arrays', () => {
     })
 
     expect(Object.getPrototypeOf(state.arrayKey)).toMatchSnapshot()
+  })
+})
+
+describe('Callback function', () => {
+  test('gets called when state is updated', () => {
+    const callback = jest.fn((state) => { expect(state).toMatchSnapshot() })
+
+    const { setState } = initStore({
+      stringKey: 'test',
+    }, callback)
+
+    setState({ stringKey: 'new test' })
+
+    expect(callback).toHaveBeenCalled()
   })
 })

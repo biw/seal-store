@@ -44,9 +44,8 @@ Object {
 
 exports[`Arrays have correct prototype 1`] = `Array []`;
 
-exports[`Object keys are removed if setState does not specify them 1st level deep 1`] = `
+exports[`Callback function gets called when state is updated 1`] = `
 Object {
-  "numberKey": 1,
   "stringKey": "new test",
 }
 `;
@@ -94,3 +93,21 @@ exports[`Object keys cannot be added with setState 1st level 1`] = `"The key 'se
 exports[`Object keys cannot be added with setState 2nd level 1`] = `"The key 'secondKey' is not in the object '[object Object]'"`;
 
 exports[`Object keys cannot be added with setState 10th level 1`] = `"The key 'stringKey2' is not in the object '[object Object]'"`;
+
+exports[`sub-object keys are removed if setState does not specify them 2nd level deep 1`] = `
+Object {
+  "secondLevel": Object {
+    "numberKey": 2,
+  },
+}
+`;
+
+exports[`sub-object keys are removed if setState does not specify them 3rd level deep 1`] = `
+Object {
+  "secondLevel": Object {
+    "thirdLevel": Object {
+      "numberKey": 3,
+    },
+  },
+}
+`;

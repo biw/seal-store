@@ -76,13 +76,13 @@ or
 ```sh
 npm add --save seal-store
 ```
-or as a script tag
+<!-- or as a script tag
 ```html
 <script src="https://unpkg.com/seal-store/dist/seal-store.umd.js"></script>
 <script type="application/javascript">
   const { state, setState } = window.sealStore({ 'saxPlayingSeal': 'looking good' })
 </script>
-```
+``` -->
 
 ## A note on children objects
 Currently, you cannot add properties to child object in the state tree. You can however, removed properties, in order to not have confusing syntax. (this may change in the v1.0.0 release of `seal-store`)

@@ -113,9 +113,7 @@ describe('2nd level state cannot be changed without setState', () => {
 
   test('2d array', () => {
     const { state } = initStore({
-      secondLevel: [
-        [],
-      ],
+      secondLevel: [[]],
     })
 
     expect(() => {
@@ -466,11 +464,16 @@ describe('Arrays', () => {
 
 describe('Callback function', () => {
   test('gets called when state is updated', () => {
-    const callback = jest.fn((state) => { expect(state).toMatchSnapshot() })
+    const callback = jest.fn((state) => {
+      expect(state).toMatchSnapshot()
+    })
 
-    const { setState } = initStore({
-      stringKey: 'test',
-    }, callback)
+    const { setState } = initStore(
+      {
+        stringKey: 'test',
+      },
+      callback,
+    )
 
     setState({ stringKey: 'new test' })
 

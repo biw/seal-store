@@ -15,7 +15,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "lint": "./node_modules/.bin/eslint .",
+    "raw-lint": "./node_modules/.bin/eslint .",
+    "raw-prettier": "./node_modules/.bin/prettier-eslint \"src/**/*.js\" \"__tests__/**/*.js\" --eslint-config-path \".eslintrc.json\"",
+    "lint": "yarn raw-prettier --write && yarn raw-lint",
     "test": "yarn jest",
     "reinstall": "rm -rf node_modules && yarn cache clean && yarn",
     "build": "npm-run-all --silent clean -p rollup -p minify:* -s",
@@ -37,6 +39,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "jest": "^22.1.4",
     "npm-run-all": "^4.1.2",
+    "prettier-eslint-cli": "^4.7.1",
     "rollup": "^0.56.3",
     "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-flow": "^1.1.1",

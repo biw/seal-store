@@ -1,4 +1,5 @@
-if (!Object.entries) { // Object.entries polyfill
+if (!Object.entries) {
+  // Object.entries polyfill
   Object.entries = (obj) => {
     const ownProps = Object.keys(obj)
     let i = ownProps.length

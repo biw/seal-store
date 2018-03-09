@@ -92,13 +92,13 @@ or
 ```sh
 npm add --save seal-store
 ```
-<!-- or as a script tag
+or as a script tag
 ```html
 <script src="https://unpkg.com/seal-store/dist/seal-store.umd.js"></script>
 <script type="application/javascript">
   const { state, setState } = window.sealStore({ 'saxPlayingSeal': 'looking good' })
 </script>
-``` -->
+```
 
 ## `proxy` Support
 

@@ -1,12 +1,20 @@
 {
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
         "targets": { "browsers": "last 2 versions" },
-        "useBuiltIns": "entry"
-    }],
+        "modules": false
+    }]
   ],
-
   "plugins": [
-    "transform-object-rest-spread"
-  ]
+    "@babel/plugin-proposal-object-rest-spread"
+  ],
+  "env" : {
+    "test": {
+      "presets": [
+        ["@babel/preset-env", {
+            "targets": { "browsers": "last 2 versions" }
+        }]
+      ]
+    }
+  },
 }

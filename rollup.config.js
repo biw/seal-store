@@ -1,26 +1,26 @@
-import buble from 'rollup-plugin-buble'
-import flow from 'rollup-plugin-flow'
+import babel from 'rollup-plugin-babel'
+import uglify from 'rollup-plugin-uglify'
 import fs from 'fs'
 
 const pkg = JSON.parse(fs.readFileSync('./package.json'))
 
-const name = 'sealStore'
-
 export default {
   input: 'src/index.js',
   plugins: [
-    flow(),
-    buble(),
+    babel({
+      exclude: 'node_modules/**',
+    }),
+    uglify(),
   ],
   output: [
     {
-      name, file: pkg.main, format: 'cjs', sourcemap: true,
+      file: pkg.main, format: 'cjs', sourcemap: true,
     },
     {
-      name, file: pkg.module, format: 'es', sourcemap: true,
+      file: pkg.module, format: 'es', sourcemap: true,
     },
     {
-      name, file: pkg['umd:main'], format: 'umd', sourcemap: true,
+      name: 'sealStore', file: pkg['umd:main'], format: 'umd', sourcemap: true,
     },
   ],
 }

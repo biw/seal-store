@@ -100,13 +100,12 @@ npm add --save seal-store
 </script>
 ``` -->
 
-## Proxy & `object.entries` Support
+## `proxy` Support
 
 `seal-store` uses `proxy` objects. If you need to provide IE support, you'll need a [proxy polyfill](https://github.com/GoogleChrome/proxy-polyfill). You can look at the full compatibility table on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
 
-`seal-store` also uses the `object.entries` method. If you need to provide IE or Node <7 support, you'll need an [`object.entries` polyfill](https://github.com/es-shims/Object.entries). You can look at the full compatibility table on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries).
-
 ## LICENSE
+
 MIT © [Ben Williams](https://719ben.com)
 
 [sealImageLink]: https://www.youtube.com/watch?v=X0k7N0ASfp8

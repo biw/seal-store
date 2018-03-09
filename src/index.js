@@ -1,3 +1,17 @@
+if (!Object.entries) { // Object.entries polyfill
+  Object.entries = (obj) => {
+    const ownProps = Object.keys(obj)
+    let i = ownProps.length
+    const resArray = new Array(i)
+    while (i) {
+      i -= 1
+      resArray[i] = [ownProps[i], obj[ownProps[i]]]
+    }
+
+    return resArray
+  }
+}
+
 const subSetter = (baseObject, edits) => {
   Object.entries(edits).forEach(([key, value]) => {
     const keyInObject = {}.hasOwnProperty.call(baseObject, key) === true

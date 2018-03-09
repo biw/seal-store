@@ -177,7 +177,7 @@ describe('Object keys cannot be added with setState', () => {
   })
 
   test('10th level', () => {
-    const { state, setState } = initStore({
+    const { setState } = initStore({
       secondLevel: {
         thirdLevel: {
           fourthLevel: {
@@ -443,11 +443,11 @@ describe('Arrays', () => {
 
   test('can shrink', () => {
     const { state, setState } = initStore({
-      arrayKey: [ 1, 2, 3, 4, 5]
+      arrayKey: [1, 2, 3, 4, 5],
     })
 
     setState({
-      arrayKey: [ 1 ],
+      arrayKey: [1],
     })
 
     expect(state).toEqual({ arrayKey: [1] })
@@ -455,11 +455,11 @@ describe('Arrays', () => {
 
   test('can shrink two levels', () => {
     const { state, setState } = initStore({
-      arrayKey: [[ 1, 2, 3, 4, 5]]
+      arrayKey: [[1, 2, 3, 4, 5]],
     })
 
     setState({
-      arrayKey: [[ 1 ]],
+      arrayKey: [[1]],
     })
 
     expect(state).toEqual({ arrayKey: [[1]] })

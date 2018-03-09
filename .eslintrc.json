@@ -21,6 +21,7 @@
     "quotes": ["error", "single", { "avoidEscape": true }],
     "semi-style": ["error", "first"],
     "semi": ["error", "never"],
+    "no-param-reassign": "off",
     "space-before-function-paren": ["error", "always"],
     "func-style": ["error", "expression", { "allowArrowFunctions": true }],
     "func-names": ["error", "as-needed"],

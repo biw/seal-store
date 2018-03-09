@@ -1,21 +1,14 @@
-const isObject = (obj) => {
-  try {
-    return Object.getPrototypeOf(obj) === Object.getPrototypeOf({})
-  } catch (_) {
-    return false
-  }
-}
-
 const subSetter = (baseObject, edits) => {
   Object.entries(edits).forEach(([key, value]) => {
     const keyInObject = {}.hasOwnProperty.call(baseObject, key) === true
 
     if (keyInObject === false && Array.isArray(baseObject) === false) {
-      throw new TypeError(`The key '${key}' is not in the object '${baseObject}'`)
+      const err = `The key '${key}' is not in the object '${baseObject}'`
+      throw new TypeError(err)
     }
 
     if (Array.isArray(baseObject[key]) === true) {
-      baseObject[key] = [ ...baseObject[key] ] // unfreeze the object
+      baseObject[key] = [...baseObject[key]] // unfreeze the object
       subSetter(baseObject[key], value)
       Object.freeze(baseObject[key]) // refreeze the objet
     } else if (typeof baseObject[key] === 'object') {
@@ -30,9 +23,9 @@ const subSetter = (baseObject, edits) => {
 }
 
 const freezedCopy = (baseObject) => {
-  Object.entries(baseObject).forEach(([key, value]) => {
+  Object.entries(baseObject).forEach(([key]) => {
     if (Array.isArray(baseObject[key]) === true) {
-      baseObject[key] = [ ...baseObject[key] ]
+      baseObject[key] = [...baseObject[key]]
       baseObject[key] = freezedCopy(baseObject[key])
       Object.freeze(baseObject[key])
     } else if (typeof baseObject[key] === 'object') {
@@ -55,7 +48,7 @@ const sealStore = (initState = {}, callback = () => {}) => {
         const err = `Cannot assign to read only property '${prop}' of ${target}`
         throw new TypeError(err)
       } else {
-        target[prop] = value // eslint-disable-line no-param-reassign
+        target[prop] = value
         return true
       }
     }

@@ -5,7 +5,7 @@
 [![MIT License][license-badge]][license]
 [![twitter][twitter-badge]][twitter]
 
-[![Seal Playing Saxophone][sealImage]][sealImageLink]
+[![Nice Seal Drawing][sealImage]][sealImageLink]
 
 
 A simple framework agnostic state store where the `state` object is immutable by any means other than a `setState` function.
@@ -26,7 +26,7 @@ setState({ saxPlayingSeal: 'looking good but getting dizzy' })
 console.log(state.saxPlayingSeal) // looking good but is getting dizzy
 ```
 
-Properties of the state object must be defined in the `initState`.
+Properties of the state object must be defined in the `initState` and cannot be removed.
 
 ```js
 const { state, setState } = initState({
@@ -42,10 +42,10 @@ const { state, setState } = initState({
   secondLevel: { thirdLevel: { fourthLevel: { 'saxPlayingSeal': 'looking good' } } }
 })
 
-setState({ secondLevel: { thirdLevel: { fourthLevel: { fish: 'in water' }) // => throws TypeError
+setState({ secondLevel: { thirdLevel: { fourthLevel: { fish: 'in water' } } } }) // => throws TypeError
 ```
 
-There is one exception to adding properties: arrays can shrink or grow. However, in any objects inside of them (other than arrays) properties cannot be added.
+There is one exception to adding/removing properties: arrays can shrink or grow. However, in any objects inside of them (other than arrays) properties cannot be added/removed.
 ```js
 const { state, setState } = initState({
   sealsInDocs: [{ name: 'spinningSeal' }],
@@ -67,6 +67,21 @@ const { state, setState } = initState({
 setState({ updated: true }) // => 'the state has been updated'
 ```
 
+Unlike other state stores, `seal-store` doesn't need spread syntax (`{ ...items }`) for changes that apply to child objects
+
+```js
+const { state, setState } = initState({
+  secondLevel: {
+    updated: false,
+    stillHere: true,
+  },
+})
+
+setState({ secondLevel: { updated: true } })
+
+console.log(state) // => { secondLevel: { updated: true, stillHere: true } }
+```
+
 
 ## Install
 
@@ -85,40 +100,11 @@ npm add --save seal-store
 </script>
 ``` -->
 
-## A note on children objects
-Currently, you cannot add properties to children objects in the state tree. You can however, removed properties. This is due to not wanting to conflict with the existing object spread syntax (this may change in the v1.0.0 release of `seal-store`)
-
-```js
-const { state, setState } = initState({
-  user: {
-    name: 'Ben',
-    twitter: '719ben',
-    github: null,
-  },
-})
-
-setState({
-  user: {
-    ...state.user, // use spread syntax if you don't want edit all child object keys
-    github: '719ben',
-  },
-})
-
-console.log(state) // { user: { name: 'Ben', twitter: '719ben', github: '719ben' } }
-
-// if we don't use spread syntax, keys will be dropped
-setState({
-  user: {
-    github: '719ben',
-  }
-})
-
-console.log(state) // { user: { github: '719ben' } }
-```
-
-## Proxy Support
+## Proxy & `object.entries` Support
 
 `seal-store` uses `proxy` objects. If you need to provide IE support, you'll need a [proxy polyfill](https://github.com/GoogleChrome/proxy-polyfill). You can look at the full compatibility table on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+
+`seal-store` also uses the `object.entries` method. If you need to provide IE or Node <7 support, you'll need an [`object.entries` polyfill](https://github.com/es-shims/Object.entries). You can look at the full compatibility table on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries).
 
 ## LICENSE
 MIT © [Ben Williams](https://719ben.com)

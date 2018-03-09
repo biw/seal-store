@@ -202,23 +202,14 @@ describe('Object keys cannot be added with setState', () => {
     expect(() => {
       setState({
         secondLevel: {
-          ...state.secondLevel,
           thirdLevel: {
-            ...state.thirdLevel,
             fourthLevel: {
-              ...state.fourthLevel,
               fifthLevel: {
-                ...state.fifthLevel,
                 sixthLevel: {
-                  ...state.sixthLevel,
                   seventhLevel: {
-                    ...state.seventhLevel,
                     eighthLevel: {
-                      ...state.eighthLevel,
                       ninthLevel: {
-                        ...state.ninthLevel,
                         tenthLevel: {
-                          ...state.tenthLevel,
                           stringKey2: 'test',
                         },
                       },
@@ -264,15 +255,25 @@ describe('Object keys can be changed with setState', () => {
 
   test('10th level state can be changed with setState', () => {
     const { state, setState } = initStore({
+      numberKey: 1,
       secondLevel: {
+        numberKey: 2,
         thirdLevel: {
+          numberKey: 3,
           fourthLevel: {
+            numberKey: 4,
             fifthLevel: {
+              numberKey: 5,
               sixthLevel: {
+                numberKey: 6,
                 seventhLevel: {
+                  numberKey: 7,
                   eighthLevel: {
+                    numberKey: 8,
                     ninthLevel: {
+                      numberKey: 9,
                       tenthLevel: {
+                        numberKey: 10,
                         stringKey: 'test',
                       },
                     },
@@ -287,23 +288,14 @@ describe('Object keys can be changed with setState', () => {
 
     setState({
       secondLevel: {
-        ...state.secondLevel,
         thirdLevel: {
-          ...state.thirdLevel,
           fourthLevel: {
-            ...state.fourthLevel,
             fifthLevel: {
-              ...state.fifthLevel,
               sixthLevel: {
-                ...state.sixthLevel,
                 seventhLevel: {
-                  ...state.seventhLevel,
                   eighthLevel: {
-                    ...state.eighthLevel,
                     ninthLevel: {
-                      ...state.ninthLevel,
                       tenthLevel: {
-                        ...state.tenthLevel,
                         stringKey: 'new test',
                       },
                     },
@@ -384,7 +376,7 @@ describe('underlying state Object is a deep copy of the input', () => {
   })
 })
 
-describe('sub-object keys are removed if setState does not specify them', () => {
+describe('sub-object keys are not removed if setState does not specify them', () => {
   test('2nd level deep', () => {
     const { state, setState } = initStore({
       secondLevel: {
@@ -399,7 +391,12 @@ describe('sub-object keys are removed if setState does not specify them', () => 
       },
     })
 
-    expect(state).toMatchSnapshot()
+    expect(state).toEqual({
+      secondLevel: {
+        numberKey: 2,
+        stringKey: 'test',
+      },
+    })
   })
 
   test('3rd level deep', () => {
@@ -420,7 +417,14 @@ describe('sub-object keys are removed if setState does not specify them', () => 
       },
     })
 
-    expect(state).toMatchSnapshot()
+    expect(state).toEqual({
+      secondLevel: {
+        thirdLevel: {
+          numberKey: 3,
+          stringKey: 'test',
+        },
+      },
+    })
   })
 })
 
@@ -435,6 +439,30 @@ describe('Arrays', () => {
     })
 
     expect(state).toMatchSnapshot()
+  })
+
+  test('can shrink', () => {
+    const { state, setState } = initStore({
+      arrayKey: [ 1, 2, 3, 4, 5]
+    })
+
+    setState({
+      arrayKey: [ 1 ],
+    })
+
+    expect(state).toEqual({ arrayKey: [1] })
+  })
+
+  test('can shrink two levels', () => {
+    const { state, setState } = initStore({
+      arrayKey: [[ 1, 2, 3, 4, 5]]
+    })
+
+    setState({
+      arrayKey: [[ 1 ]],
+    })
+
+    expect(state).toEqual({ arrayKey: [[1]] })
   })
 
   test('can change children', () => {

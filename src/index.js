@@ -1,10 +1,3 @@
-import deepFreeze from 'deep-freeze-strict'
-import entries from 'object.entries'
-
-if (!Object.entries) {
-  entries.shim()
-}
-
 const isObject = (obj) => {
   try {
     return Object.getPrototypeOf(obj) === Object.getPrototypeOf({})
@@ -13,26 +6,42 @@ const isObject = (obj) => {
   }
 }
 
-const subSetter = (obj, edits, topLevel = false) => {
+const subSetter = (baseObject, edits) => {
   Object.entries(edits).forEach(([key, value]) => {
-    if ({}.hasOwnProperty.call(obj, key) === true || Array.isArray(obj)) {
-      if (typeof obj[key] === 'object') {
-        subSetter(obj[key], edits[key])
-      }
-      if (topLevel) {
-        let newValue = value
-        if (isObject(obj[key]) === true) {
-          // there could be an issue here with hitting max stack limit
-          // for very deep trees
-          newValue = Object.assign({}, value)
-        }
-        obj[key] = newValue // eslint-disable-line no-param-reassign
-        deepFreeze(obj[key])
-      }
-    } else {
-      throw new TypeError(`The key '${key}' is not in the object '${obj}'`)
+    const keyInObject = {}.hasOwnProperty.call(baseObject, key) === true
+
+    if (keyInObject === false && Array.isArray(baseObject) === false) {
+      throw new TypeError(`The key '${key}' is not in the object '${baseObject}'`)
+    }
+
+    if (Array.isArray(baseObject[key]) === true) {
+      baseObject[key] = [ ...baseObject[key] ] // unfreeze the object
+      subSetter(baseObject[key], value)
+      Object.freeze(baseObject[key]) // refreeze the objet
+    } else if (typeof baseObject[key] === 'object') {
+      baseObject[key] = { ...baseObject[key] } // unfreeze the object
+      subSetter(baseObject[key], value)
+      Object.freeze(baseObject[key]) // refreeze the objet
+      return
+    }
+
+    baseObject[key] = value
+  })
+}
+
+const freezedCopy = (baseObject) => {
+  Object.entries(baseObject).forEach(([key, value]) => {
+    if (Array.isArray(baseObject[key]) === true) {
+      baseObject[key] = [ ...baseObject[key] ]
+      baseObject[key] = freezedCopy(baseObject[key])
+      Object.freeze(baseObject[key])
+    } else if (typeof baseObject[key] === 'object') {
+      baseObject[key] = { ...baseObject[key] }
+      baseObject[key] = freezedCopy(baseObject[key])
+      Object.freeze(baseObject[key])
     }
   })
+  return baseObject
 }
 
 const sealStore = (initState = {}, callback = () => {}) => {
@@ -58,8 +67,9 @@ const sealStore = (initState = {}, callback = () => {}) => {
     return new Proxy(proxyObj, api)
   }
 
-  const copyInitState = Object.assign({}, initState)
-  const baseObject = sealProxy(copyInitState)
+  const shallowInitStateCopy = { ...initState }
+  const internalState = freezedCopy(shallowInitStateCopy)
+  const baseObject = sealProxy(internalState)
 
   const setState = (edits = {}) => {
     initalized = false
@@ -67,10 +77,6 @@ const sealStore = (initState = {}, callback = () => {}) => {
     initalized = true
     callback(baseObject)
   }
-
-  Object.keys(baseObject).forEach((key) => {
-    deepFreeze(baseObject[key])
-  })
 
   initalized = true
 

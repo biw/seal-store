@@ -236,6 +236,26 @@ describe('Object keys can be changed with setState', () => {
     expect(state).toMatchSnapshot()
   })
 
+  test('1st level null', () => {
+    const { state, setState } = initStore({
+      nullKey: null,
+    })
+
+    setState({ nullKey: 'not null' })
+
+    expect(state).toMatchSnapshot()
+  })
+
+  test('1st level undefined', () => {
+    const { state, setState } = initStore({
+      undefinedKey: undefined,
+    })
+
+    setState({ undefinedKey: 'not undefined' })
+
+    expect(state).toMatchSnapshot()
+  })
+
   test('2nd level', () => {
     const { state, setState } = initStore({
       secondLevel: {

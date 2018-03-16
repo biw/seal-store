@@ -26,7 +26,7 @@ const subSetter = (baseObject, edits) => {
       baseObject[key] = [...baseObject[key]] // unfreeze the object
       subSetter(baseObject[key], value)
       Object.freeze(baseObject[key]) // refreeze the objet
-    } else if (typeof baseObject[key] === 'object') {
+    } else if (typeof baseObject[key] === 'object' && baseObject[key] !== null) {
       baseObject[key] = { ...baseObject[key] } // unfreeze the object
       subSetter(baseObject[key], value)
       Object.freeze(baseObject[key]) // refreeze the objet
@@ -38,17 +38,18 @@ const subSetter = (baseObject, edits) => {
 }
 
 const freezedCopy = (baseObject) => {
-  Object.entries(baseObject).forEach(([key]) => {
+  Object.keys(baseObject).forEach((key) => {
     if (Array.isArray(baseObject[key]) === true) {
       baseObject[key] = [...baseObject[key]]
       baseObject[key] = freezedCopy(baseObject[key])
       Object.freeze(baseObject[key])
-    } else if (typeof baseObject[key] === 'object') {
+    } else if (typeof baseObject[key] === 'object' && baseObject[key] !== null) {
       baseObject[key] = { ...baseObject[key] }
       baseObject[key] = freezedCopy(baseObject[key])
       Object.freeze(baseObject[key])
     }
   })
+
   return baseObject
 }
 

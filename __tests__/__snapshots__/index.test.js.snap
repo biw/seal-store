@@ -56,6 +56,18 @@ Object {
 }
 `;
 
+exports[`Object keys can be changed with setState 1st level null 1`] = `
+Object {
+  "nullKey": "not null",
+}
+`;
+
+exports[`Object keys can be changed with setState 1st level undefined 1`] = `
+Object {
+  "undefinedKey": "not undefined",
+}
+`;
+
 exports[`Object keys can be changed with setState 2nd level 1`] = `
 Object {
   "secondLevel": Object {

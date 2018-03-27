@@ -4,6 +4,8 @@ logs
 yarn-debug.log*
 yarn-error.log*
 
+.DS_Store
+
 # Runtime data
 pids
 *.pid
